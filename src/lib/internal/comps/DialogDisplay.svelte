@@ -3,9 +3,9 @@
 
 	import type { Dialog } from '../dialog.js';
 
-	import { clickOutside } from '$lib/actions/clickoutside.js';
-	import { trapFocus } from '$lib/actions/trap_focus.js';
-	import { crossfade } from '$lib/actions/crossfadeExists.js';
+	import { clickOutside } from '../actions/clickoutside.js';
+	import { trapFocus } from '../actions/trap-focus.js';
+	import { crossfade } from '../actions/crossfade-exists.js';
 
 	export let dialog: Dialog;
 	export let cameFrom: HTMLElement | null = null;
@@ -37,7 +37,7 @@
 		aria-hidden={isTop ? undefined : true}
 		in:receive={{ key }}
 		out:send={{ key }}
-		use:clickOutside={{}}
+		use:clickOutside
 		use:trapFocus={() => isTop}
 		style={$styleStore}
 		on:outclick|capture|stopPropagation={() => {
