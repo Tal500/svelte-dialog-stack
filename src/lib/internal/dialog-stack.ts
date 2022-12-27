@@ -85,6 +85,7 @@ export class DialogStack {
 		}
 
 		const modalOut: DialogOut = {
+			modal: writable(false),
 			closable,
 			close,
 			setMinWidth(value: string | undefined) {

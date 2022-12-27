@@ -3,6 +3,7 @@ import type { ComponentType, SvelteComponentTyped, ComponentProps } from 'svelte
 import type { Writable, Readable } from 'svelte/store';
 
 export type DialogOut = {
+	modal: Writable<boolean>;
 	closable: Writable<boolean>;
 	close: (shouldReturnFocus?: boolean) => void;
 	setMinWidth: (value: string | undefined) => void;
