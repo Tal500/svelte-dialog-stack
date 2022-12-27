@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang="ts" strictEvents>
 	import { onMount, type ComponentEvents, type ComponentProps, type ComponentType } from 'svelte';
 
 	import type { DialogComponentBase } from '../dialog.js';

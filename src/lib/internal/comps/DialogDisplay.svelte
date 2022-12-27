@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang="ts" strictEvents>
 	import { fade, fly } from 'svelte/transition';
 
 	import type { Dialog } from '../dialog.js';

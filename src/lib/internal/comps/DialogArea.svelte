@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang="ts" strictEvents>
 	import { get } from 'svelte/store';
 
 	import type { DialogStack } from '../dialog-stack.js';
