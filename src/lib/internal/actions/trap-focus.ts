@@ -1,9 +1,6 @@
 // Based on https://svelte.dev/examples/modal
 
 export function trapFocus(node: HTMLElement | SVGElement, onlinePredicate = () => true) {
-	// Code has been moved to exitTopModal() func
-	//const previouslyFocused: any = (typeof window !== 'undefined') ? document.activeElement : null;
-
 	const handleKeydown = (e: KeyboardEvent) => {
 		if (e.key === 'Tab' && onlinePredicate()) {
 			console.log('Tab keydown captured!');
@@ -35,13 +32,6 @@ export function trapFocus(node: HTMLElement | SVGElement, onlinePredicate = () =
 		destroy() {
 			//console.log('Removing Tab keydown capturing!');
 			window.removeEventListener('keydown', handleKeydown, true);
-
-			// Code has been moved to exitTopModal() func
-			//const previouslyFocused = returnFocusTo();
-			// if (previouslyFocused) {
-			// 	console.log('Returning to previously focused node: ' + previouslyFocused);
-			// 	previouslyFocused.focus();
-			// }
 		}
 	};
 }

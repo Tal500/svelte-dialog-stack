@@ -17,7 +17,7 @@
 	type PropsKeysStored = $$Generic<keyof Props>;
 
 	type PropsRestKeys = Exclude<keyof Props, PropsKeysStored>;
-	type PropsStored = { [key in (PropsKeysStored & keyof Props)]: Props[key] };
+	type PropsStored = { [key in PropsKeysStored]: key extends keyof Props ? Props[key] : never };
 	type PropsStaticRequired = { [key in PropsRestKeys]: Props[key] };
 
 	type Events = ComponentEvents<Comp>;

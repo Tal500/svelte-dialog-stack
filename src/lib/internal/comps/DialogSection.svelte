@@ -10,7 +10,7 @@
 	type Props = ComponentProps<Comp>;
 	type PropsKeysStored = $$Generic<keyof Props>;
 
-	type PropsStored = { [key in (PropsKeysStored & keyof Props)]: Props[key] };
+	type PropsStored = { [key in PropsKeysStored]: key extends keyof Props ? Props[key] : never };
 
 	type Events = ComponentEvents<Comp>;
 	type Handlers = { [signal in keyof Events]?: (event: Events[signal]) => void };

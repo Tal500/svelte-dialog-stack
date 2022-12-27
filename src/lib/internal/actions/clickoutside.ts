@@ -12,6 +12,6 @@ export const clickOutside: Action<Node, void> = (node: Node) => {
 	document.addEventListener('mousedown', handleClick, true);
 
 	return {
-		destroy() { document.removeEventListener('mousedown', handleClick, true) };
+		destroy() { document.removeEventListener('mousedown', handleClick, true); }
 	};
 };

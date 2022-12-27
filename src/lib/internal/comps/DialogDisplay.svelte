@@ -31,7 +31,7 @@
 <div class="dialog" role="presentation" transition:fade={{ duration: 250 }}>
 	<!-- TODO: Support label and label-by by using Svelte Context? -->
 	<div
-		class="modal-content"
+		class="dialog-content"
 		role="dialog"
 		aria-modal="true"
 		aria-hidden={isTop ? undefined : true}

@@ -79,7 +79,7 @@ export class DialogStack {
 			});
 
 			if (previouslyFocused) {
-				console.log('Returning to previously focused node: ' + previouslyFocused);
+				//console.log('Returning to previously focused node: ' + previouslyFocused);
 				previouslyFocused.focus();
 			}
 		}
