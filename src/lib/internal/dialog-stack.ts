@@ -101,7 +101,7 @@ export class DialogStack {
 			componentConstructor,
 			component: null as unknown as Comp,
 			propsStore,
-			modalOut,
+			dialogOut: modalOut,
 			closable,
 			styleStore: derived([minWidth, width, maxWidth], ([$minWidth, $width, $maxWidth]) =>
 				flattenStyle({

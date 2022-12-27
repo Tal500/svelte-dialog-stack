@@ -50,7 +50,7 @@
 		<svelte:component
 			this={dialog.componentConstructor}
 			bind:this={dialog.component}
-			modalOut={dialog.modalOut}
+			dialogOut={dialog.dialogOut}
 			{...$propsStore}
 		/>
 	</div>

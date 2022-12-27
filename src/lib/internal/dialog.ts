@@ -16,7 +16,7 @@ export interface Dialog<Comp extends DialogComponentBase = DialogComponentBase> 
 	componentConstructor: ComponentType<Comp>;
 	component: Comp;
 	propsStore: Readable<Partial<ComponentProps<Comp>>>;
-	modalOut: DialogOut;
+	dialogOut: DialogOut;
 	closable: Readable<boolean>;
 	styleStore: Readable<string | undefined>;
 	close: (shouldReturnFocus?: boolean) => void;
