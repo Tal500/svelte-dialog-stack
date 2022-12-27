@@ -6,10 +6,10 @@
 	import ModalDisplay from './DialogDisplay.svelte';
 
 	export let dialogStack: DialogStack;
-	const { frameStack, topModal } = dialogStack;
+	const { frameStack, topDialog } = dialogStack;
 
 	function tryClose() {
-		const dialog = $topModal;
+		const dialog = $topDialog;
 		if (dialog && get(dialog.closable)) {
 			dialogStack.exitTopModal();
 		}

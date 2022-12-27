@@ -14,11 +14,11 @@ export type DialogFrame = {
 export class DialogStack {
 	frameStack: Writable<DialogFrame[]>;
 
-	topModal: Readable<Dialog | null>;
+	topDialog: Readable<Dialog | null>;
 
 	constructor() {
 		this.frameStack = writable([]);
-		this.topModal = derived(this.frameStack, ($frameStack) =>
+		this.topDialog = derived(this.frameStack, ($frameStack) =>
 			$frameStack.length === 0 ? null : $frameStack[$frameStack.length - 1].modal
 		);
 	}
