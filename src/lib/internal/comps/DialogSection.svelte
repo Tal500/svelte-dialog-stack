@@ -8,9 +8,9 @@
 
 	type Comp = $$Generic<DialogComponentBase>;
 	type Props = ComponentProps<Comp>;
-	type PropsKeysStored = $$Generic<Props>;
+	type PropsKeysStored = $$Generic<keyof Props>;
 
-	type PropsStored = { [key in keyof PropsKeysStored]: Props[key] };
+	type PropsStored = { [key in (PropsKeysStored & keyof Props)]: Props[key] };
 
 	type Events = ComponentEvents<Comp>;
 	type Handlers = { [signal in keyof Events]?: (event: Events[signal]) => void };
