@@ -11,7 +11,7 @@ export type DialogOut = {
 	setMaxWidth: (value: string | undefined) => void;
 };
 
-export type DialogComponentBase = SvelteComponentTyped; // TODO: Require some props to exist in the svelte component?
+export type DialogComponentBase = SvelteComponentTyped<{ dialogOut?: DialogOut }>;
 
 export interface Dialog<Comp extends DialogComponentBase = DialogComponentBase> {
 	componentConstructor: ComponentType<Comp>;
