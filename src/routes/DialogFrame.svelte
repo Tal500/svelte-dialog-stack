@@ -16,7 +16,7 @@
 </script>
 
 {#if $$slots.header}
-	<header class="modal-header" data-action={actionType}>
+	<header class="dialog-header" data-action={actionType}>
 		{#if showCloseButton}
 			<button
 				type="button"
@@ -30,18 +30,18 @@
 	</header>
 {/if}
 
-<div class="modal-main">
+<div class="dialog-main">
 	<slot />
 </div>
 
 {#if $$slots.footer}
-	<footer class="modal-footer" data-action={actionType}>
+	<footer class="dialog-footer" data-action={actionType}>
 		<slot name="footer" />
 	</footer>
 {/if}
 
 <style lang="postcss" rtlfix>
-	.modal-header {
+	.dialog-header {
 		padding: 17px 18px;
 		background-color: rgb(92, 184, 92);
 		color: white;
@@ -52,29 +52,29 @@
 		font-size: 36px;
 	}
 
-	.modal-header[data-action='add'] {
+	.dialog-header[data-action='add'] {
 		background-color: rgb(61, 112, 207);
 	}
 
-	.modal-header[data-action='delete'] {
+	.dialog-header[data-action='delete'] {
 		background-color: red;
 	}
 
-	.modal-main {
+	.dialog-main {
 		padding: 1em;
 	}
 
-	.modal-footer {
+	.dialog-footer {
 		padding: 5px 16px;
 		background-color: rgba(92, 184, 92, 0.3);
 		color: white;
 	}
 
-	.modal-footer[data-action='add'] {
+	.dialog-footer[data-action='add'] {
 		background-color: rgba(61, 112, 207, 0.3);
 	}
 
-	.modal-footer[data-action='delete'] {
+	.dialog-footer[data-action='delete'] {
 		background-color: rgba(255, 0, 0, 0.3);
 	}
 

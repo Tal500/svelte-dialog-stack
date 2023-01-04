@@ -43,7 +43,7 @@
 		};
 	});
 	function updatePropsHelper() {
-		if (updatePropsStore && $frameStack.findIndex((frame) => frame.modal === modal) >= 0) {
+		if (updatePropsStore && $frameStack.findIndex((frame) => frame.dialog === dialog) >= 0) {
 			//console.log("Updating props");
 			updatePropsStore(computeProps());
 		}
@@ -55,16 +55,16 @@
 
 	export let callbacks: Handlers = {};
 
-	let modal: Dialog<Comp> | null = null;
+	let dialog: Dialog<Comp> | null = null;
 	const _isActiveStore = writable<boolean>(false);
 
 	// TODO: Change it to "isOpen"
 	// TODO: Change it from store/function to value
-	export const isActive = () => modal !== null;
+	export const isActive = () => dialog !== null;
 	export const isActiveStore: () => Readable<boolean> = () => _isActiveStore;
 
 	// TODO: Add the ability to be started openned in SSR
-	//  (notice that for this we'll need to have the modal area at the button of the body tag)
+	//  (notice that for this we'll need to have the dialog area at the button of the body tag)
 
 	export const open: {
 		<T extends PropsStaticRequired>(
@@ -88,14 +88,14 @@
 		}
 		// otherwise
 
-		if (modal !== null) {
-			throw "Can't open a modal, since it's already open!";
+		if (dialog !== null) {
+			throw "Can't open a dialog, since it's already open!";
 		}
 		// otherwise
 
 		_staticProps = staticProps;
 		const computedProps = computeProps();
-		modal = dialogStack.openModal(
+		dialog = dialogStack.openDialog(
 			componentConstructor,
 			propsStore,
 			previouslyFocused as HTMLElement | null | undefined
@@ -105,38 +105,38 @@
 
 		tick()
 			.then(() => {
-				// On client side after mounting the modal, attach to all events.
+				// On client side after mounting the dialog, attach to all events.
 				if (isActive()) {
 					Object.entries(callbacks).forEach(([signal, callback]) => {
 						if (callback) {
-							modal!.component.$on(signal, callback);
+							dialog!.component.$on(signal, callback);
 						}
 					});
 				}
 			})
 			.catch((reason) => {
-				console.error(`Error while attaching events to the modal: ${reason}`);
+				console.error(`Error while attaching events to the dialog: ${reason}`);
 			});
 	};
 
 	export function close(shouldReturnFocus = true) {
-		if (modal === null) {
-			throw "Can't close a modal, since it's not open!";
+		if (dialog === null) {
+			throw "Can't close a dialog, since it's not open!";
 		}
 		// otherwise
 
-		modal.close(shouldReturnFocus);
+		dialog.close(shouldReturnFocus);
 	}
 
-	$: if (modal != null && $frameStack.findIndex((frame) => frame.modal === modal) < 0) {
-		modal = null;
+	$: if (dialog != null && $frameStack.findIndex((frame) => frame.dialog === dialog) < 0) {
+		dialog = null;
 		_isActiveStore.set(false);
 		dispatch('close');
 	}
 
 	onDestroy(() => {
-		if (modal) {
-			modal.close();
+		if (dialog) {
+			dialog.close();
 		}
 	});
 </script>

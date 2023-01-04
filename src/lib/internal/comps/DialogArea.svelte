@@ -3,7 +3,7 @@
 
 	import type { DialogStack } from '../dialog-stack.js';
 
-	import ModalDisplay from './DialogDisplay.svelte';
+	import DialogDisplay from './DialogDisplay.svelte';
 
 	export let dialogStack: DialogStack;
 	const { frameStack, topDialog } = dialogStack;
@@ -11,7 +11,7 @@
 	function tryClose() {
 		const dialog = $topDialog;
 		if (dialog && get(dialog.closable)) {
-			dialogStack.exitTopModal();
+			dialogStack.exitTopDialog();
 		}
 	}
 
@@ -27,8 +27,8 @@
 <svelte:window on:keydown={handleKeydown} />
 
 {#each $frameStack as frame, i (frame)}
-	<ModalDisplay
-		dialog={frame.modal}
+	<DialogDisplay
+		dialog={frame.dialog}
 		cameFrom={frame.previouslyFocused}
 		isTop={i === $frameStack.length - 1}
 		{tryClose}

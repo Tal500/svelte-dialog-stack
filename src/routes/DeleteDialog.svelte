@@ -14,7 +14,7 @@
 </script>
 
 <DialogFrame {dialogOut} actionType={ActionType.Delete}>
-	<svelte:fragment slot="header">Delete Modal</svelte:fragment>
+	<svelte:fragment slot="header">Delete Dialog</svelte:fragment>
 
 	<p>
 		Are you sure you want to remove?

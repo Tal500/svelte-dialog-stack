@@ -6,8 +6,8 @@ import { flattenStyle } from './utils/styling.js';
 
 import type { Dialog, DialogOut, DialogComponentBase } from './dialog.js';
 
-export type DialogFrame = {
-	modal: Dialog;
+export type DialogFrame<Comp extends DialogComponentBase = DialogComponentBase> = {
+	dialog: Dialog<Comp>;
 	previouslyFocused: HTMLElement | null;
 };
 
@@ -19,22 +19,22 @@ export class DialogStack {
 	constructor() {
 		this.frameStack = writable([]);
 		this.topDialog = derived(this.frameStack, ($frameStack) =>
-			$frameStack.length === 0 ? null : $frameStack[$frameStack.length - 1].modal
+			$frameStack.length === 0 ? null : $frameStack[$frameStack.length - 1].dialog
 		);
 	}
 
-	exitTopModal(shouldReturnFocus = true) {
+	exitTopDialog(shouldReturnFocus = true) {
 		const $frameStack = get(this.frameStack);
 		if ($frameStack.length === 0) {
-			throw Error("Can't exit top modal since no modal is up!");
+			throw Error("Can't exit top dialog since no dialog is up!");
 		}
 		// otherwise
 
 		const topFrame = $frameStack[$frameStack.length - 1];
-		topFrame.modal.close(shouldReturnFocus);
+		topFrame.dialog.close(shouldReturnFocus);
 	}
 
-	openModal<Comp extends DialogComponentBase = DialogComponentBase>(
+	openDialog<Comp extends DialogComponentBase = DialogComponentBase>(
 		componentConstructor: ComponentType<Comp>,
 		propsStore: Readable<Partial<ComponentProps<Comp>>>,
 		previouslyFocused: HTMLElement | null | undefined = undefined
@@ -55,10 +55,7 @@ export class DialogStack {
 		const width = writable<string | undefined>(undefined);
 		const maxWidth = writable<string | undefined>(undefined);
 
-		let frame = undefined as unknown as {
-			modal: Dialog<Comp>;
-			previouslyFocused: HTMLElement | null;
-		};
+		let frame: DialogFrame;
 
 		const frameStack = this.frameStack;
 
@@ -68,8 +65,8 @@ export class DialogStack {
 					? frame.previouslyFocused
 					: null;
 
-			if (modal.onCloseInternal) {
-				modal.onCloseInternal(previouslyFocused);
+			if (dialog.onCloseInternal) {
+				dialog.onCloseInternal(previouslyFocused);
 			}
 
 			frameStack.update(($frameStack) => {
@@ -84,7 +81,7 @@ export class DialogStack {
 			}
 		}
 
-		const modalOut: DialogOut = {
+		const dialogOut: DialogOut = {
 			modal: writable(false),
 			closable,
 			close,
@@ -98,11 +95,11 @@ export class DialogStack {
 				maxWidth.set(value);
 			}
 		};
-		const modal: Dialog<Comp> = {
+		const dialog: Dialog<Comp> = {
 			componentConstructor,
 			component: null as unknown as Comp,
 			propsStore,
-			dialogOut: modalOut,
+			dialogOut,
 			closable,
 			styleStore: derived([minWidth, width, maxWidth], ([$minWidth, $width, $maxWidth]) =>
 				flattenStyle({
@@ -115,14 +112,14 @@ export class DialogStack {
 			onCloseInternal: null
 		};
 
-		frame = { modal, previouslyFocused };
+		frame = { dialog, previouslyFocused };
 
 		this.frameStack.update(($frameStack) => {
 			$frameStack.push(frame);
 			return $frameStack;
 		});
 
-		return modal;
+		return dialog;
 	}
 
 	pushUpdate() {
