@@ -13,7 +13,7 @@ import DialogSection from './internal/comps/DialogSection.svelte';
 //  maybe because of how Svelte generic component typing works...
 export type DialogConnectorOf<Comp extends DialogComponentBase> = DialogConnector<
 	Comp,
-	ComponentProps<Comp>
+	keyof ComponentProps<Comp>
 >;
 
 export { Dialog, DialogOut, DialogStack, DialogArea, DialogConnector, DialogDisplay, DialogSection };
