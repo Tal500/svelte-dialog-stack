@@ -21,7 +21,7 @@
 	</p>
 
 	<div slot="footer" class="form-button-area">
-		<button>Remove</button>
 		<button>Cancel</button>
+		<button>Remove</button>
 	</div>
 </DialogFrame>
